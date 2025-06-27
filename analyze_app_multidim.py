@@ -92,10 +92,17 @@ if uploaded_file:
 
             result = pd.concat([grouped, total_row], ignore_index=True)
 
-            # 四舍五入格式化（pp 不加 %）
-            for col in [in0_ratio_col, in1_ratio_col, rate0_col, rate1_col,
-                        "结构效应(pp)", "退费率效应(pp)", "合计影响(pp)"]:
+            # 百分比字段加 %，保留 2 位小数
+            def to_percent(val):
+                return f"{round(val * 100, 2)}%" if pd.notna(val) else ""
+            
+            for col in [in0_ratio_col, in1_ratio_col, rate0_col, rate1_col]:
+                result[col] = result[col].apply(to_percent)
+            
+            # pp 字段保留 4 位小数，不加 %
+            for col in ["结构效应(pp)", "退费率效应(pp)", "合计影响(pp)"]:
                 result[col] = result[col].round(4)
+
 
             st.subheader("📄 拆解结果")
             st.dataframe(result, use_container_width=True)
