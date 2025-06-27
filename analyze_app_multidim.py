@@ -7,7 +7,7 @@ import io
 st.set_page_config(page_title="动态多维拆解分析工具", layout="wide")
 
 st.title("📊 动态多维拆解分析工具")
-st.markdown("上传你的 CSV 文件，自动识别维度列，进行结构效应和目标指标效应的中心化拆解分析。")
+st.markdown("上传你的 CSV 文件，自动识别维度列，进行结构效应和目标指标效应的中心化拆解分析。❗️注意：维度列没有限制，但是数值字段列必须按照：基期分母，当期分母，基期分子，当期分子 的顺序")
 
 uploaded_file = st.file_uploader("📁 上传 CSV 文件", type=["csv"])
 
