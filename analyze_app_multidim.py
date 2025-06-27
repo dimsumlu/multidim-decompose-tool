@@ -44,7 +44,7 @@ if uploaded_file:
                         group, members = line.split("=", 1)
                         for val in members.split("|"):
                             value_to_group[val.strip()] = group.strip()
-                working_df[merge_dim] = working_df[merge_dim].map(value_to_group).fillna(working_df[merge_dim])
+                working_df[merge_dim] = working_df[merge_dim].apply(lambda x: value_to_group.get(x, x))
 
             grouped = working_df.groupby(selected_dims, dropna=False).agg({
                 in0: 'sum',
